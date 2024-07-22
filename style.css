@@ -10,7 +10,11 @@ header{
     height: 10vh;
     align-items: center;
     margin: auto 80px;
+    color: #ffffff;
   
+}
+header h1{
+    color: #ed563b;
 }
 li{
     list-style: none;
@@ -43,7 +47,7 @@ li{
     width: 100vw;
     background-size: cover;
    
-    /* color: white; */
+    color: white;
 }
 .hero::before{
     content: '';
@@ -53,9 +57,9 @@ li{
     right: 0;
     bottom: 0;
     
-    background: url('images/hero.jpg') no-repeat center center;
+    background: url('images/hero2.jpg') no-repeat center center;
     background-size: cover;
-    opacity: 0.4; /* Adjust the opacity as needed */
+    opacity: 1; /* Adjust the opacity as needed */
     z-index: -1; /* Ensure the background is behind other content */
 }
 .hero h1{
@@ -83,4 +87,63 @@ li{
 
 .program p{
     text-align: center;
+    margin-top: 22px;
+    line-height: 25px;
 }
+.types{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 40px auto;
+}
+.child_types{
+    display: flex;
+    justify-content: flex-start;
+    height: 150px;
+    width: 540px;
+    gap: 22px;
+}
+.child_types img{
+    height: 100px;
+    width:  100px;
+}
+.child_types p{
+  margin: 6px auto;
+  text-align: start;
+}
+.child_types button{
+    border: none;
+    color:#ed563b;
+}
+.think{
+    background: url('images/new.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-align: center;
+    height: 420px;
+    width: 100%;
+    gap: 30px;
+}
+span{
+    color: #ed563b;
+}
+.think h1{
+    font-size: 36px;
+}
+.think p{
+    font-size: 18px;
+}
+.think button{
+    
+    padding: 12px 12px;
+    background-color: #ed563b;
+    color: white;
+    border: none;
+   
+    cursor: pointer;
+ }
