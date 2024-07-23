@@ -1,44 +1,52 @@
-*{
+* {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 }
 
-header{
+h1 {
+    font-size: 40px;
+}
+
+header {
     display: flex;
     justify-content: space-between;
     height: 10vh;
     align-items: center;
     margin: auto 80px;
     color: #ffffff;
-  
+
 }
-header h1{
-    color: #ed563b;
-}
-li{
+
+
+
+li {
     list-style: none;
 }
-.list{
+
+.list {
     display: flex;
     gap: 24px;
 }
-.list li{
+
+.list li {
     padding-top: 8px;
 }
-.list button{
-    
+
+.list button {
+
     padding: 10px 10px;
     background-color: #ed563b;
     color: white;
     border: none;
     cursor: pointer;
-   
- }
-.hero{
-   
-    
-   
+
+}
+
+.hero {
+
+
+
     background-repeat: no-repeat;
     height: 95vh;
     display: flex;
@@ -46,75 +54,97 @@ li{
     align-items: center;
     width: 100vw;
     background-size: cover;
-   
+
     color: white;
 }
-.hero::before{
+
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    
+
     background: url('images/hero2.jpg') no-repeat center center;
     background-size: cover;
-    opacity: 1; /* Adjust the opacity as needed */
-    z-index: -1; /* Ensure the background is behind other content */
+    opacity: 1;
+    /* Adjust the opacity as needed */
+    z-index: -1;
+    /* Ensure the background is behind other content */
 }
-.hero h1{
+
+.hero h1 {
     font-size: 70px;
-  text-align: center;
+    text-align: center;
 }
-.hero h2{
+
+.hero h2 {
     font-size: 48px;
     align-items: center;
     text-align: center;
 }
-.hero button{
-    
-   padding: 12px 12px;
-   background-color: #ed563b;
-   color: white;
-   border: none;
-   margin-left: 40%;
-   cursor: pointer;
-}
-.program h1{
-  text-align: center;
-  font-size: 40px;
+
+.headerlist {
+    color: black;
 }
 
-.program p{
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.hero button {
+
+    padding: 12px 12px;
+    background-color: #ed563b;
+    color: white;
+    border: none;
+    margin-left: 40%;
+    cursor: pointer;
+}
+
+.program h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.program p {
     text-align: center;
     margin-top: 22px;
     line-height: 25px;
 }
-.types{
+
+.types {
     display: flex;
     justify-content: space-evenly;
     margin: 40px auto;
 }
-.child_types{
+
+.child_types {
     display: flex;
     justify-content: flex-start;
     height: 150px;
-    width: 540px;
+    width: 580px;
     gap: 22px;
 }
-.child_types img{
+
+.child_types img {
     height: 100px;
-    width:  100px;
+    width: 100px;
 }
-.child_types p{
-  margin: 6px auto;
-  text-align: start;
+
+.child_types p {
+    margin: 6px auto;
+    text-align: start;
 }
-.child_types button{
+
+.child_types button {
     border: none;
-    color:#ed563b;
+    color: #ed563b;
 }
-.think{
+
+.think {
     background: url('images/new.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -129,21 +159,65 @@ li{
     width: 100%;
     gap: 30px;
 }
-span{
+
+span {
     color: #ed563b;
 }
-.think h1{
+
+.think h1 {
     font-size: 36px;
 }
-.think p{
+
+.think p {
     font-size: 18px;
 }
-.think button{
-    
+
+.think button {
+
     padding: 12px 12px;
     background-color: #ed563b;
     color: white;
     border: none;
-   
+
     cursor: pointer;
- }
+}
+
+.expert {
+    margin: 40px auto;
+}
+
+.expert h1 {
+    text-align: center;
+    font-size: 60px;
+}
+
+.expert p {
+    text-align: center;
+}
+
+.expert_info {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.one {
+    width: 350px;
+    height: fit-content;
+    justify-content: flex-start;
+    line-height: 30px;
+    margin: 40px auto;
+}
+
+.one p {
+    text-align: start;
+}
+
+.one h3 {
+    color: #ed563b;
+}
+
+footer p {
+    text-align: center;
+    margin: 10px 10px;
+}
