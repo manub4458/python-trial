@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <script type="module" src="login.js" defer></script>
-    <script type="module" src="register.js" defer></script>
-
+    <link rel="stylesheet" href="{{ url_for('public', path='/style.css') }}">
+    <script type="module" src="{{ url_for('public', path='/logout.js') }}" ></script>
 </head>
 
 <body>
@@ -23,13 +20,18 @@
             <li>HOME</li>
             <li>ABOUT</li>
             <li>CLASSES</li>
-            <a href="/login.html">
-                <button>
-                    SIGNUP
-                </button>
-            </a>
-           
-              
+            {% if not user_token %}
+                <a href="/login">
+                    <button class="signup" id="signup">
+                        Login
+                    </button>
+                </a>
+            {% endif %}
+            {% if user_token %}
+                <button class="logout-btn" id="logout-btn" style="display: hidden;">
+                    Logout
+                </button> 
+            {% endif %}
         </div>
     </header>
 
@@ -66,7 +68,7 @@
             <div>
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>
@@ -83,7 +85,7 @@
                 </div>
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>
@@ -101,7 +103,7 @@
 
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>
@@ -122,7 +124,7 @@
             <div>
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>
@@ -139,7 +141,7 @@
                 </div>
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>
@@ -157,7 +159,7 @@
 
                 <div class="child_types">
                     <div>
-                        <img src="/images/fitness.png" alt="">
+                        <img src="{{ url_for('public', path='/images/fitness.png') }}" alt="">
                     </div>
 
                     <div>

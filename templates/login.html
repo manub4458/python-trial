@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="login.js" defer></script>
-
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('public', path='/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('public', path='/style.css') }}">
+    <script type="module" src="{{ url_for('public', path='/login.js') }}" ></script>
 </head>
 <body>
     <header>
         <div>
-           <a href="/index.html">
+           <a href="/">
             <h1>
                 <span>GYM</span> STUDIO
              </h1>
            </a>
         </div>
         <div class="list">
-           <a href="/index.html">
+           <a href="/">
             <li class="headerlist">HOME</li>
            </a>
             <li class="headerlist">ABOUT</li>
             <li class="headerlist">CLASSES</li>
-           <a href="/login.html">
+           <a href="/login">
             <button>
-                SIGNUP
+                Login
             </button>
            </a>
 
@@ -45,11 +44,11 @@
                         <input required class="input" type="text" id="password" />
                         <label class="label" for="input">Enter Password</label>
                     </div>
-                    <button class="submit-btn" id="submit" >Sign In</button>
+                    <button class="submit-btn" id="login-btn" >Sign In</button>
                     <p>
                         Don't have an account?
                     </p>
-                    <a href="/signup.html">
+                    <a href="/signup">
                         <button>
                             Sign up
                         </button>

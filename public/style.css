@@ -221,3 +221,9 @@ footer p {
     text-align: center;
     margin: 10px 10px;
 }
+.remove{
+    display: none;
+}
+.show{
+    display: inline;
+}

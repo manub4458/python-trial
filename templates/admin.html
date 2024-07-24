@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('public', path='/style.css') }}">
+    <script type="module" src="{{ url_for('public', path='/logout.js') }}" ></script>
+</head>
+
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <button id="logout-btn">Logout</button>
+    </header>
+
+    <main>
+        <section>
+            <h2>Manage Users</h2>
+            <ul id="userList">
+                {% for user in users %}
+                    {% if user.get('email') != "admin@gmail.com" %}
+                        <li>
+                            <form action="">
+                                <span>{{ user.get('email') }}</span>
+                                <button>Remove</button>
+                            </form>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Manage Testimonials</h2>
+            <div>
+                <form action="form-control">
+                    <h3>Add Testimonials</h3>
+                    <input type="text" name="username" id="">
+                    <textarea name="testimonial" id=""></textarea>
+                    <button>Submit</button>
+                </form>
+            </div>
+            <ul id="testimonialList"></ul>
+        </section>
+
+        <section>
+            <h2>Manage Membership Plans</h2>
+            <ul id="membershipList"></ul>
+            <form id="addPlanForm">
+                <input type="text" id="planName" placeholder="Plan Name" required>
+                <input type="number" id="planPrice" placeholder="Plan Price" required>
+                <button type="submit">Add Plan</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
