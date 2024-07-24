@@ -37,30 +37,45 @@
             <div>
                 <form action="/add-testimonial" method="post" >
                     <h3>Add Testimonials</h3>
-                    <input type="text" name="name" id="">
-                    <textarea name="testimonial" id=""></textarea>
+                    <input type="text" name="name" id="" required>
+                    <textarea name="testimonial" id="" required ></textarea>
                     <button>Submit</button>
                 </form>
             </div>
             <ul id="testimonialList">
                 {% for testimonial in testimonials %}
-                    <form action="/remove-testimonial/{{ testimonial.id }}" method="get" >
-                        <strong>{{ testimonial.get('name') }}</strong>
-                        <p>{{ testimonial.get('testimonial') }}</p>
-                        <button type="submit" >Remove</button>
-                    </form>
+                    <li>
+                        <form action="/remove-testimonial/{{ testimonial.id }}" method="get" >
+                            <strong>{{ testimonial.get('name') }}</strong>
+                            <p>{{ testimonial.get('testimonial') }}</p>
+                            <button type="submit" >Remove</button>
+                        </form>
+                    </li>
                 {% endfor %}
             </ul>
         </section>
 
         <section>
             <h2>Manage Membership Plans</h2>
-            <ul id="membershipList"></ul>
-            <form id="addPlanForm">
-                <input type="text" id="planName" placeholder="Plan Name" required>
-                <input type="number" id="planPrice" placeholder="Plan Price" required>
+            <form id="addPlanForm" action="/subscription/add" method="post">
+                <p>Add new plan</p>
+                <input type="text" id="planName" name="name" placeholder="Plan Name" required>
+                <input type="number" id="planPrice" name="price"  placeholder="Plan Price" required>
+                <input type="text" name="validity" required placeholder="Validity">
                 <button type="submit">Add Plan</button>
             </form>
+            <ul id="membershipList">
+                {% for subscription in subscriptions %}
+                    <li>
+                        <form action="/subscription/remove/{{ subscription.id }}" method="get">
+                            <p>Name : {{ subscription.get("name")}} </p>
+                            <p>Price : {{ subscription.get("price")}} </p>
+                            <p>Validity : {{ subscription.get("validity")}} </p>
+                            <button>Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
         </section>
     </main>
 </body>

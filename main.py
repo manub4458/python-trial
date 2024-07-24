@@ -144,6 +144,8 @@ async def addTestimonial( req: Request ):
 
     return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 
+
+
 @app.get("/remove-testimonial/{id}", response_class=RedirectResponse)
 async def addTestimonial( req: Request, id:str ):
     id_token = req.cookies.get("token")
@@ -159,4 +161,24 @@ async def addTestimonial( req: Request, id:str ):
 
     return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 
+
+
+@app.post("/subscription/add", response_class=RedirectResponse)
+async def addTestimonial( req: Request ):
+    id_token = req.cookies.get("token")
+    user_token = None
+    user_token = validateFirebaseToken(id_token)
+
+    if not user_token:
+        return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    
+    form = await req.form()
+    firestore_db.collection("subscriptions").document().set({
+        "name" : form["name"],
+        "price" : int(form["price"]),
+        "validity" : form["validity"],
+        "created" : datetime.now()
+    })
+
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 # $Env:GOOGLE_APPLICATION_CREDENTIALS="key.json"
