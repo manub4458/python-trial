@@ -39,7 +39,15 @@ async def root(request: Request):
             },
         )
     
-    createUser(user_token)
+    user = createUser(user_token)
+
+    if user.get("isblocked") :
+        return templets.TemplateResponse(
+            "blocked.html",
+            {   "request": request,
+                "user_token": user_token,
+            }
+        )
 
 
     if user_token['email'] == constants.admin:
@@ -84,8 +92,11 @@ def createUser(user_token):
             {
                 "id": user_token["user_id"],
                 "email": user_token["email"],
+                "isblocked": False
             }
         )
+        user = firestore_db.collection("users").document(user_token["user_id"]).get()
+    return user
 
 
 @app.get("/login", response_class=HTMLResponse)
@@ -147,7 +158,7 @@ async def addTestimonial( req: Request ):
 
 
 @app.get("/remove-testimonial/{id}", response_class=RedirectResponse)
-async def addTestimonial( req: Request, id:str ):
+async def removeTestimonial( req: Request, id:str ):
     id_token = req.cookies.get("token")
     user_token = None
     user_token = validateFirebaseToken(id_token)
@@ -164,7 +175,7 @@ async def addTestimonial( req: Request, id:str ):
 
 
 @app.post("/subscription/add", response_class=RedirectResponse)
-async def addTestimonial( req: Request ):
+async def addSubscription( req: Request ):
     id_token = req.cookies.get("token")
     user_token = None
     user_token = validateFirebaseToken(id_token)
@@ -183,8 +194,9 @@ async def addTestimonial( req: Request ):
     return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 
 
+
 @app.get("/subscription/remove/{id}", response_class=RedirectResponse)
-async def addTestimonial( req: Request, id:str ):
+async def removeSubscription( req: Request, id:str ):
     id_token = req.cookies.get("token")
     user_token = None
     user_token = validateFirebaseToken(id_token)
@@ -197,4 +209,41 @@ async def addTestimonial( req: Request, id:str ):
         subscription.delete()
 
     return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+
+
+
+@app.post("/block/{id}", response_class=RedirectResponse)
+async def block( req: Request, id:str ):
+    id_token = req.cookies.get("token")
+    user_token = None
+    user_token = validateFirebaseToken(id_token)
+
+    if not user_token:
+        return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    
+    subscription = firestore_db.collection("users").document(id)
+    if subscription.get().exists:
+        subscription.update({ "isblocked": True })
+
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+
+
+
+@app.post("/unblock/{id}", response_class=RedirectResponse)
+async def unblock( req: Request, id:str ):
+    id_token = req.cookies.get("token")
+    user_token = None
+    user_token = validateFirebaseToken(id_token)
+
+    if not user_token:
+        return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    
+    subscription = firestore_db.collection("users").document(id)
+    if subscription.get().exists:
+        subscription.update({ "isblocked": False })
+
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+
+
+
 # $Env:GOOGLE_APPLICATION_CREDENTIALS="key.json"

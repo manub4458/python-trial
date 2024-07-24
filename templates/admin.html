@@ -22,10 +22,18 @@
                 {% for user in users %}
                     {% if user.get('email') != "admin@gmail.com" %}
                         <li>
-                            <form action="">
-                                <span>{{ user.get('email') }}</span>
-                                <button>Remove</button>
-                            </form>
+                            {% if user.get('isblocked') %}
+                                <form action="/unblock/{{user.id}}" method="post">
+                                    <span>{{ user.get('email') }}</span>
+                                    <button>Unblock</button>
+                                </form>
+                            {% endif %}
+                            {% if not user.get('isblocked') %}
+                                <form action="/block/{{user.id}}" method="post">
+                                    <span>{{ user.get('email') }}</span>
+                                    <button>Block</button>
+                                </form>
+                            {% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}
