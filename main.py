@@ -7,6 +7,8 @@ import google.oauth2.id_token
 from google.auth.transport import requests
 from google.cloud import firestore
 import constants
+import starlette.status as status
+from datetime import datetime
 
 
 app = FastAPI()
@@ -34,6 +36,9 @@ async def root(request: Request):
         )
     
     createUser(user_token)
+    testimonials = firestore_db.collection("testimonials").get()
+    subscriptions = firestore_db.collection("subscriptions").get()
+
 
     if user_token['email'] == constants.admin:
         users = firestore_db.collection("users").get()
@@ -41,7 +46,9 @@ async def root(request: Request):
             "admin.html",
             {   "request": request,
                 "user_token": user_token,
-                "users" : users
+                "users" : users,
+                "testimonials" : testimonials,
+                "subscriptions" : subscriptions
             }
     )
 
@@ -118,7 +125,37 @@ def signup( req:Request ):
     return RedirectResponse("/")
 
 
+@app.post("/add-testimonial", response_class=RedirectResponse)
+async def addTestimonial( req: Request ):
+    id_token = req.cookies.get("token")
+    user_token = None
+    user_token = validateFirebaseToken(id_token)
 
+    if not user_token:
+        return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    
+    form = await req.form()
+    firestore_db.collection("testimonials").document().set({
+        "name" : form["name"],
+        "testimonial" : form["testimonial"],
+        "created" : datetime.now()
+    })
 
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+
+@app.get("/remove-testimonial/{id}", response_class=RedirectResponse)
+async def addTestimonial( req: Request, id:str ):
+    id_token = req.cookies.get("token")
+    user_token = None
+    user_token = validateFirebaseToken(id_token)
+
+    if not user_token:
+        return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
+    
+    testimonial = firestore_db.collection("testimonials").document(id)
+    if testimonial.get().exists:
+        testimonial.delete()
+
+    return RedirectResponse("/", status_code=status.HTTP_302_FOUND)
 
 # $Env:GOOGLE_APPLICATION_CREDENTIALS="key.json"

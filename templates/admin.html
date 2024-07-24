@@ -35,14 +35,22 @@
         <section>
             <h2>Manage Testimonials</h2>
             <div>
-                <form action="form-control">
+                <form action="/add-testimonial" method="post" >
                     <h3>Add Testimonials</h3>
-                    <input type="text" name="username" id="">
+                    <input type="text" name="name" id="">
                     <textarea name="testimonial" id=""></textarea>
                     <button>Submit</button>
                 </form>
             </div>
-            <ul id="testimonialList"></ul>
+            <ul id="testimonialList">
+                {% for testimonial in testimonials %}
+                    <form action="/remove-testimonial/{{ testimonial.id }}" method="get" >
+                        <strong>{{ testimonial.get('name') }}</strong>
+                        <p>{{ testimonial.get('testimonial') }}</p>
+                        <button type="submit" >Remove</button>
+                    </form>
+                {% endfor %}
+            </ul>
         </section>
 
         <section>
