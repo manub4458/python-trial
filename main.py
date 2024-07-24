@@ -25,6 +25,8 @@ async def root(request: Request):
     id_token = request.cookies.get("token")
     user_token = None
     user_token = validateFirebaseToken(id_token)
+    testimonials = firestore_db.collection("testimonials").get()
+    subscriptions = firestore_db.collection("subscriptions").get()
 
     if not user_token:
         return templets.TemplateResponse(
@@ -32,12 +34,12 @@ async def root(request: Request):
             {
                 "request": request,
                 "user_token": None,
+                "testimonials" : testimonials,
+                "subscriptions" : subscriptions
             },
         )
     
     createUser(user_token)
-    testimonials = firestore_db.collection("testimonials").get()
-    subscriptions = firestore_db.collection("subscriptions").get()
 
 
     if user_token['email'] == constants.admin:
@@ -56,6 +58,8 @@ async def root(request: Request):
         "index.html",
         {   "request": request,
             "user_token": user_token,
+            "testimonials" : testimonials,
+            "subscriptions" : subscriptions
         }
     )
 
@@ -74,9 +78,7 @@ def validateFirebaseToken(id_token):
 
 
 def createUser(user_token):
-    print("Fetching user")
     user = firestore_db.collection("users").document(user_token["user_id"]).get()
-    print("User", user)
     if not user.exists:
         firestore_db.collection("users").document(user_token["user_id"]).create(
             {
@@ -84,7 +86,6 @@ def createUser(user_token):
                 "email": user_token["email"],
             }
         )
-        print("Writing user")
 
 
 @app.get("/login", response_class=HTMLResponse)
