@@ -220,6 +220,28 @@
 
     </section>
 
+    <section class="expert">
+        <div>
+            <h1>
+                <span> Pricing </span>
+            </h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur.
+            </p>
+        </div>
+        <div>
+            {% for subscription in subscriptions %}
+                <div>
+                    <p>{{ subscription.get("name") }}</p>
+                    <div>
+                        <p>Price {{ subscription.get("price") }}</p>
+                        <p>Validity {{ subscription.get("validity") }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
     <footer>
         <div>
             <p>
